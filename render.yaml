@@ -4,18 +4,38 @@ services:
     env: node
     region: singapore # Change this to your preferred region
     plan: starter # You can upgrade to standard or pro if needed
-    buildCommand: npm ci && npm run build && npx prisma generate
-    startCommand: node --max-old-space-size=512 dist/main
+    buildCommand: |
+      echo "=== Build Debug Info ==="
+      pwd
+      ls -la
+      echo "=== Removing yarn.lock if exists ==="
+      rm -f yarn.lock
+      echo "=== Installing dependencies with npm ==="
+      npm ci
+      echo "=== Building application ==="
+      npm run build
+      echo "=== Generating Prisma client ==="
+      npx prisma generate
+      echo "=== Build completed, checking structure ==="
+      ls -la
+      ls -la dist/
+      echo "=== Checking main.js file ==="
+      ls -la dist/main.*
+      echo "=== Making start.js executable ==="
+      chmod +x start.js
+    startCommand: node --max-old-space-size=512 start.js
     healthCheckPath: /
     envVars:
       - key: NODE_ENV
         value: production
       - key: PORT
         generateValue: true
+      - key: NPM_CONFIG_PRODUCTION
+        value: false
     # Make sure to add your environment variables in Render dashboard:
     # - DATABASE_URL (your MongoDB connection string)
     # - JWT_SECRET (your JWT secret key)
-    # - AWS_REGION (your AWS region)
+    # - AWS_REGION (your AWS region)  
     # - AWS_ACCESS_KEY_ID (your AWS access key)
     # - AWS_SECRET_ACCESS_KEY (your AWS secret access key)
     # - AWS_S3_BUCKET_NAME (your S3 bucket name) 
