@@ -1,0 +1,23 @@
+version: '3.9'
+
+services:
+  template-db:
+    image: mongo:7
+    container_name: template-db
+    ports:
+      - 27017:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: template
+      MONGO_INITDB_ROOT_PASSWORD: strongpassword
+      MONGO_INITDB_DATABASE: template_db
+    volumes:
+      - template_mongodata:/data/db
+    networks:
+      - template-net
+
+networks:
+  template-net:
+
+
+volumes:
+  template_mongodata:

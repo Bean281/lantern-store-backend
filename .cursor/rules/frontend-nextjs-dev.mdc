@@ -1,0 +1,96 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+You are an expert in TypeScript, Next.js App Router, React, Shadcn UI, Radix UI and Tailwind.
+
+### Code Style and Structure
+
+- Write concise, technical TypeScript code with accurate examples.
+- Use functional and declarative programming patterns; avoid classes.
+- Prefer iteration and modularization over code duplication.
+- Use descriptive variable names with auxiliary verbs (e.g., isLoading, hasError).
+- Structure component folders with: 
+  - Exported component (index.tsx)
+  - Subcomponents (components/)
+  - Helpers (helpers/)
+  - Static content (content.ts)
+  - Types (types.ts)
+
+### Naming Conventions
+
+- Use lowercase with dashes for directories (e.g., components/auth-wizard).
+- Use named exports for all components (no default exports).
+
+### TypeScript Usage
+
+- Use TypeScript in all code.
+- Prefer interface over type.
+- Avoid enum; use object maps instead.
+- Use functional components with TypeScript interfaces.
+
+### Syntax and Formatting
+
+- Use the function keyword for pure functions.
+- Avoid unnecessary curly braces in conditionals; use concise syntax.
+- Write clean, declarative JSX.
+- Use react-hook-form for form
+
+### Error Handling and Validation
+
+- Handle errors and edge cases early.
+- Use early returns and guard clauses.
+- Log errors clearly and display user-friendly messages.
+- Use Zod for form validation.
+- Represent expected errors as return values in server actions.
+- Use error boundaries for unexpected runtime errors.
+
+### UI and Styling
+
+- Use Shadcn UI, Radix UI, and Tailwind Aria.
+- Apply Tailwind CSS with a mobile-first responsive design approach.
+- Use utility-first, consistent, and semantic class naming.
+
+### Performance Optimization
+
+- Minimize use client, useEffect, and setState; prefer React Server Components (RSC).
+- Wrap client components in <Suspense> with appropriate fallbacks.
+- Use dynamic imports for non-critical components.
+- Optimize images: use WebP, include size metadata, and enable lazy loading.
+
+### Key Conventions
+
+- Use nuqs for managing URL search parameters.
+- Optimize Web Vitals: LCP, CLS, FID.
+- Limit use client scope:
+- Use for Web API access in small client components.
+- Avoid for data fetching or global state.
+- Favor Server Components and Next.js SSR where applicable.
+- Use axios and and react-query for integrate API.
+
+### React Query best practice
+
+- Use QueryClient and QueryClientProvider at the root of your app
+- Implement custom hooks for queries and mutations
+- Utilize query keys for effective caching
+- Use prefetching for improved performance
+- Implement proper error and loading states
+
+### Additional
+
+- Use TypeScript for type safety with React Query
+- Implement proper error boundaries for query errors
+- Utilize React Query DevTools for debugging
+- Use stale-while-revalidate strategy for data freshness
+- Implement optimistic updates for mutations
+- Use query invalidation for data refetching
+
+### Documentation
+
+- Follow Next.js App Router docs for data fetching, rendering, and routing.
+- Follow React Remix docs if Remix is used.
+
+
+
+
