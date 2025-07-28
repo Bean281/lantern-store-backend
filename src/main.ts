@@ -82,10 +82,20 @@ async function bootstrap() {
     })
   );
 
+  // Simple health check endpoint for Render
+  app.getHttpAdapter().get('/', (req, res) => {
+    res.json({ 
+      status: 'ok', 
+      message: 'Lantern Store Backend is running!',
+      timestamp: new Date().toISOString(),
+      version: '1.0.0'
+    });
+  });
+
   const port = process.env.PORT ?? 3333;
-  await app.listen(port);
+  await app.listen(port, '0.0.0.0');
   
-  console.log(`🚀 Application is running on: http://localhost:${port}`);
-  console.log(`📚 Swagger documentation: http://localhost:${port}/api`);
+  console.log(`🚀 Application is running on: http://0.0.0.0:${port}`);
+  console.log(`📚 Swagger documentation: http://0.0.0.0:${port}/api`);
 }
 bootstrap();
