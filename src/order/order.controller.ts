@@ -26,6 +26,8 @@ import {
   CreateOrderResponseDto,
   GetOrdersByPhoneResponseDto,
   GetOrdersByPhoneQueryDto,
+  UpdateOrderInfoDto,
+  UpdateOrderInfoResponseDto,
 } from './dto';
 
 @ApiTags('orders')
@@ -161,5 +163,72 @@ export class OrderController {
     @Body('status') status: 'NEW' | 'NEGOTIATING' | 'SHIPPING' | 'COMPLETED'
   ): Promise<OrderResponseDto> {
     return this.orderService.updateOrderStatus(id, status);
+  }
+
+  @Put(':id')
+  @ApiOperation({ 
+    summary: 'Update order information',
+    description: 'Update customer information for an existing order. Customers can update their own orders by providing their phone number. Admins can update any order.'
+  })
+  @ApiParam({ 
+    name: 'id', 
+    description: 'Order ID',
+    example: '507f1f77bcf86cd799439011' 
+  })
+  @ApiQuery({ 
+    name: 'phone', 
+    description: 'Customer phone number (required for non-admin users to verify ownership)',
+    example: '+1234567890',
+    required: false
+  })
+  @ApiBody({ 
+    type: UpdateOrderInfoDto,
+    description: 'Order update data (only provide fields you want to update)'
+  })
+  @ApiResponse({ 
+    status: 200, 
+    description: 'Order updated successfully', 
+    type: UpdateOrderInfoResponseDto 
+  })
+  @ApiResponse({ status: 400, description: 'Bad request - Invalid data, completed order, or phone number mismatch' })
+  @ApiResponse({ status: 404, description: 'Order not found' })
+  async updateOrder(
+    @Param('id') id: string,
+    @Body() updateOrderDto: UpdateOrderInfoDto,
+    @Query('phone') phone?: string
+  ): Promise<UpdateOrderInfoResponseDto> {
+    return this.orderService.updateOrder(id, updateOrderDto, phone);
+  }
+
+  @Put(':id/admin')
+  @UseGuards(JwtGuard, AdminGuard)
+  @ApiBearerAuth()
+  @ApiOperation({ 
+    summary: 'Update order information (Admin only)',
+    description: 'Update customer information for any order. Admin version without phone verification requirement.'
+  })
+  @ApiParam({ 
+    name: 'id', 
+    description: 'Order ID',
+    example: '507f1f77bcf86cd799439011' 
+  })
+  @ApiBody({ 
+    type: UpdateOrderInfoDto,
+    description: 'Order update data (only provide fields you want to update)'
+  })
+  @ApiResponse({ 
+    status: 200, 
+    description: 'Order updated successfully', 
+    type: UpdateOrderInfoResponseDto 
+  })
+  @ApiResponse({ status: 400, description: 'Bad request - Invalid data or completed order' })
+  @ApiResponse({ status: 401, description: 'Unauthorized - Invalid or missing token' })
+  @ApiResponse({ status: 403, description: 'Forbidden - Admin access required' })
+  @ApiResponse({ status: 404, description: 'Order not found' })
+  async updateOrderAdmin(
+    @Param('id') id: string,
+    @Body() updateOrderDto: UpdateOrderInfoDto
+  ): Promise<UpdateOrderInfoResponseDto> {
+    return this.orderService.updateOrder(id, updateOrderDto);
   }
 } 

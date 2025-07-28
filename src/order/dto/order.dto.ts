@@ -192,4 +192,53 @@ export class GetOrdersByPhoneQueryDto {
   })
   @IsString()
   phone: string;
+}
+
+export class UpdateOrderInfoDto {
+  @ApiProperty({ 
+    description: 'Customer full name',
+    example: 'John Doe',
+    required: false
+  })
+  @IsOptional()
+  @IsString()
+  customerName?: string;
+
+  @ApiProperty({ 
+    description: 'Customer phone number',
+    example: '+1234567890',
+    required: false
+  })
+  @IsOptional()
+  @IsString()
+  phone?: string;
+
+  @ApiProperty({ 
+    description: 'Customer delivery address',
+    example: '123 Main St, City, State 12345',
+    required: false
+  })
+  @IsOptional()
+  @IsString()
+  address?: string;
+
+  @ApiProperty({ 
+    description: 'Additional notes for the order',
+    example: 'Please deliver after 6 PM',
+    required: false 
+  })
+  @IsOptional()
+  @IsString()
+  notes?: string;
+}
+
+export class UpdateOrderInfoResponseDto {
+  @ApiProperty({ description: 'Success status' })
+  success: boolean;
+
+  @ApiProperty({ description: 'Updated order', type: OrderResponseDto })
+  order: OrderResponseDto;
+
+  @ApiProperty({ description: 'Success message' })
+  message: string;
 } 

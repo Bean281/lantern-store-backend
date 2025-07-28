@@ -5,6 +5,8 @@ import {
   OrderResponseDto,
   CreateOrderResponseDto,
   GetOrdersByPhoneResponseDto,
+  UpdateOrderInfoDto,
+  UpdateOrderInfoResponseDto,
 } from './dto';
 
 @Injectable()
@@ -236,6 +238,86 @@ export class OrderService {
       }
       console.error('Update order status error:', error);
       throw new BadRequestException(`Failed to update order status: ${error.message}`);
+    }
+  }
+
+  async updateOrder(orderId: string, updateOrderDto: UpdateOrderInfoDto, requestingPhone?: string): Promise<UpdateOrderInfoResponseDto> {
+    try {
+      // First check if order exists
+      const existingOrder = await this.prisma.order.findUnique({
+        where: { id: orderId },
+        include: { items: true },
+      });
+
+      if (!existingOrder) {
+        throw new NotFoundException(`Order with ID ${orderId} not found`);
+      }
+
+      // If requestingPhone is provided, verify it matches the order
+      // This allows customers to update their own orders
+      if (requestingPhone && existingOrder.phone !== requestingPhone) {
+        throw new BadRequestException('You can only update orders associated with your phone number');
+      }
+
+      // Prevent updates if order is already completed
+      if (existingOrder.status === 'COMPLETED') {
+        throw new BadRequestException('Cannot update completed orders');
+      }
+
+      // Prepare update data (only include provided fields)
+      const updateData: any = {};
+      if (updateOrderDto.customerName !== undefined) {
+        updateData.customerName = updateOrderDto.customerName;
+      }
+      if (updateOrderDto.phone !== undefined) {
+        updateData.phone = updateOrderDto.phone;
+      }
+      if (updateOrderDto.address !== undefined) {
+        updateData.address = updateOrderDto.address;
+      }
+      if (updateOrderDto.notes !== undefined) {
+        updateData.notes = updateOrderDto.notes;
+      }
+
+      // Update the order
+      const updatedOrder = await this.prisma.order.update({
+        where: { id: orderId },
+        data: updateData,
+        include: { items: true },
+      });
+
+      // Format response
+      const orderResponse: OrderResponseDto = {
+        id: updatedOrder.id,
+        customerName: updatedOrder.customerName,
+        phone: updatedOrder.phone,
+        address: updatedOrder.address,
+        notes: updatedOrder.notes || undefined,
+        total: updatedOrder.total,
+        status: updatedOrder.status as any,
+        createdAt: updatedOrder.createdAt,
+        updatedAt: updatedOrder.updatedAt,
+        items: updatedOrder.items.map(item => ({
+          id: item.id,
+          productId: item.productId,
+          name: item.name,
+          price: item.price,
+          quantity: item.quantity,
+          image: item.image,
+        })),
+      };
+
+      return {
+        success: true,
+        order: orderResponse,
+        message: 'Order updated successfully',
+      };
+    } catch (error) {
+      if (error instanceof NotFoundException || error instanceof BadRequestException) {
+        throw error;
+      }
+      console.error('Update order error:', error);
+      throw new BadRequestException(`Failed to update order: ${error.message}`);
     }
   }
 

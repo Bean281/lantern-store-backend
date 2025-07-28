@@ -207,7 +207,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "D:\\Own Project\\LanternStoreEcommerce\\backend-template\\generated\\prisma",
+      "value": "D:\\Own Project\\LanternStoreEcommerce\\lantern-store-backend\\generated\\prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -225,7 +225,7 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "D:\\Own Project\\LanternStoreEcommerce\\backend-template\\prisma\\schema.prisma",
+    "sourceFilePath": "D:\\Own Project\\LanternStoreEcommerce\\lantern-store-backend\\prisma\\schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
