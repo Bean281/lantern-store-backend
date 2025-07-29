@@ -46,8 +46,6 @@ async function bootstrap() {
       }
       // Removed the reference name to match default @ApiBearerAuth() decorators
     )
-    .addServer('http://localhost:3333', 'Development server')
-    // .addServer('https://api.lanternstore.com', 'Production server')
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
