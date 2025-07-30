@@ -41,6 +41,8 @@ export class ProductService {
           images: imageUrls,
           inStock: processedDto.inStock ?? true,
           stockCount: processedDto.stockCount ?? 0,
+          features: processedDto.features ?? [],
+          specifications: processedDto.specifications ?? {},
         },
       });
 
@@ -424,6 +426,8 @@ export class ProductService {
           processed.features = [processed.features];
         }
       }
+    } else {
+      processed.features = [];
     }
     
     // Process specifications
@@ -435,6 +439,8 @@ export class ProductService {
           processed.specifications = {};
         }
       }
+    } else {
+      processed.specifications = {};
     }
 
     // Process existingImages

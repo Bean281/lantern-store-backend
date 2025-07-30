@@ -203,7 +203,7 @@ export class ProductController {
           description: 'Product images (max 10 files, 5MB each)'
         },
       },
-      required: ['name', 'price', 'category', 'description', 'features', 'specifications']
+      required: ['name', 'price', 'category', 'description']
     },
   })
   @ApiResponse({ 

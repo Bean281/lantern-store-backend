@@ -56,8 +56,10 @@ export class CreateProductDto {
 
   @ApiProperty({ 
     description: 'Array of product features (JSON string)',
-    example: '["M2 chip", "16GB RAM", "512GB SSD"]'
+    example: '["M2 chip", "16GB RAM", "512GB SSD"]',
+    required: false
   })
+  @IsOptional()
   @IsString()
   @Transform(({ value }) => {
     try {
@@ -66,12 +68,14 @@ export class CreateProductDto {
       return value;
     }
   })
-  features: string[] | string;
+  features?: string[] | string;
 
   @ApiProperty({ 
     description: 'Product specifications as JSON string',
-    example: '{"Screen Size": "14-inch", "RAM": "16GB", "Storage": "512GB"}' 
+    example: '{"Screen Size": "14-inch", "RAM": "16GB", "Storage": "512GB"}',
+    required: false
   })
+  @IsOptional()
   @IsString()
   @Transform(({ value }) => {
     try {
@@ -80,7 +84,7 @@ export class CreateProductDto {
       return value;
     }
   })
-  specifications: Record<string, string> | string;
+  specifications?: Record<string, string> | string;
 
   @ApiProperty({ 
     description: 'Whether product is in stock',
