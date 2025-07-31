@@ -61,11 +61,10 @@ export class UpdateCategoryResponseDto {
 
 export class GetCategoriesResponseDto {
     @ApiProperty({ 
-        type: [String],
-        example: ['Electronics', 'Clothing', 'Books', 'Home & Garden'],
-        description: 'Array of category names'
+        type: [CategoryResponseDto],
+        description: 'Array of category objects with full information'
     })
-    categories: string[];
+    categories: CategoryResponseDto[];
 }
 
 export class DeleteCategoryResponseDto {

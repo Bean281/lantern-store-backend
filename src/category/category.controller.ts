@@ -19,11 +19,11 @@ export class CategoryController {
     @Get()
     @ApiOperation({ 
         summary: 'Get all categories',
-        description: 'Retrieve a list of all category names. Public endpoint.'
+        description: 'Retrieve a list of all categories with full information including id, name, createdAt, and updatedAt. Public endpoint.'
     })
     @ApiResponse({ 
         status: 200, 
-        description: 'Successfully retrieved all categories', 
+        description: 'Successfully retrieved all categories with full information', 
         type: GetCategoriesResponseDto 
     })
     async getCategories(): Promise<GetCategoriesResponseDto> {

@@ -22,10 +22,7 @@ export class CategoryService {
             },
         });
 
-        // Return only the category names as strings
-        const categoryNames = categories.map(category => category.name);
-        
-        return { categories: categoryNames };
+        return { categories };
     }
 
     async createCategory(dto: CreateCategoryDto): Promise<CreateCategoryResponseDto> {
