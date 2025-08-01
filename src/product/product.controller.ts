@@ -238,30 +238,30 @@ export class ProductController {
   @ApiBody({
     schema: {
       type: 'object',
-      properties: {
-        name: { type: 'string', example: 'MacBook Pro 14-inch' },
-        price: { type: 'number', example: 1999.99 },
-        originalPrice: { type: 'number', example: 2199.99 },
-        category: { type: 'string', example: 'Electronics' },
-        description: { type: 'string', example: 'Powerful laptop with M2 chip' },
-        features: { type: 'string', example: '["M2 chip", "16GB RAM", "512GB SSD"]' },
-        specifications: { type: 'string', example: '{"Screen Size": "14-inch", "RAM": "16GB"}' },
-        inStock: { type: 'string', example: 'true' },
-        stockCount: { type: 'string', example: '50' },
-        existingImages: { 
-          type: 'string', 
-          example: '["image1.jpg", "image2.jpg"]',
-          description: 'Filenames of existing images to keep (JSON array string)'
-        },
-        images: {
-          type: 'array',
-          items: {
-            type: 'string',
-            format: 'binary',
+              properties: {
+          name: { type: 'string', example: 'MacBook Pro 14-inch' },
+          price: { type: 'string', example: '1999.99' },
+          originalPrice: { type: 'string', example: '2199.99' },
+          category: { type: 'string', example: 'Electronics' },
+          description: { type: 'string', example: 'Powerful laptop with M2 chip' },
+          features: { type: 'string', example: '["M2 chip", "16GB RAM", "512GB SSD"]' },
+          specifications: { type: 'string', example: '{"Screen Size": "14-inch", "RAM": "16GB"}' },
+          inStock: { type: 'string', example: 'true' },
+          stockCount: { type: 'string', example: '50' },
+          existingImages: { 
+            type: 'string', 
+            example: '["image1.jpg", "image2.jpg"]',
+            description: 'Filenames of existing images to keep (JSON array string)'
           },
-          description: 'New product images to upload (max 10 files, 5MB each)'
+          images: {
+            type: 'array',
+            items: {
+              type: 'string',
+              format: 'binary',
+            },
+            description: 'New product images to upload (max 10 files, 5MB each)'
+          },
         },
-      },
     },
   })
   @ApiResponse({ 

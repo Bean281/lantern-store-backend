@@ -227,15 +227,22 @@ export class UpdateProductDto {
     required: false 
   })
   @IsOptional()
-  @IsString()
   @Transform(({ value }) => {
     try {
-      return typeof value === 'string' ? JSON.parse(value) : value;
+      if (typeof value === 'string') {
+        return JSON.parse(value);
+      }
+      if (Array.isArray(value)) {
+        return value;
+      }
+      return [];
     } catch {
       return [];
     }
   })
-  existingImages?: string[] | string;
+  @IsArray()
+  @IsString({ each: true })
+  existingImages?: string[];
 }
 
 export class ProductResponseDto {
