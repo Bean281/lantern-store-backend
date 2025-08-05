@@ -63,8 +63,183 @@ async function bootstrap() {
     customSiteTitle: 'Lantern Store API Documentation',
     customfavIcon: '/favicon.ico',
     customCss: `
+      /* Hide default topbar */
       .swagger-ui .topbar { display: none }
-      .swagger-ui .info .title { color: #3b82f6; }
+      
+      /* Body and main background */
+      body {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        margin: 0;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      }
+      
+      .swagger-ui {
+        background: transparent;
+      }
+      
+      /* Main wrapper styling */
+      .swagger-ui .wrapper {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        border-radius: 12px;
+        margin: 20px;
+        padding: 30px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        min-height: calc(100vh - 40px);
+      }
+      
+      /* Header styling */
+      .swagger-ui .info {
+        background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+        color: white;
+        padding: 30px;
+        border-radius: 12px;
+        margin-bottom: 30px;
+        box-shadow: 0 10px 20px rgba(59, 130, 246, 0.3);
+      }
+      
+      .swagger-ui .info .title {
+        color: white !important;
+        font-size: 2.5rem;
+        font-weight: bold;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        margin-bottom: 10px;
+      }
+      
+      .swagger-ui .info .description {
+        color: rgba(255, 255, 255, 0.9) !important;
+        font-size: 1.1rem;
+        line-height: 1.6;
+      }
+      
+      /* Operations styling */
+      .swagger-ui .opblock {
+        background: white;
+        border: 1px solid #e5e7eb;
+        border-radius: 8px;
+        margin-bottom: 15px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        transition: all 0.3s ease;
+      }
+      
+      .swagger-ui .opblock:hover {
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+        transform: translateY(-2px);
+      }
+      
+      /* Method badges */
+      .swagger-ui .opblock.opblock-get .opblock-summary-method {
+        background: linear-gradient(135deg, #10b981, #059669);
+      }
+      
+      .swagger-ui .opblock.opblock-post .opblock-summary-method {
+        background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+      }
+      
+      .swagger-ui .opblock.opblock-put .opblock-summary-method {
+        background: linear-gradient(135deg, #f59e0b, #d97706);
+      }
+      
+      .swagger-ui .opblock.opblock-delete .opblock-summary-method {
+        background: linear-gradient(135deg, #ef4444, #dc2626);
+      }
+      
+      /* Tag sections */
+      .swagger-ui .opblock-tag {
+        background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+        border: none;
+        border-radius: 8px;
+        padding: 15px 20px;
+        margin-bottom: 20px;
+        font-weight: 600;
+        color: #1e293b;
+        font-size: 1.2rem;
+      }
+      
+      /* Authorization section */
+      .swagger-ui .auth-wrapper {
+        background: linear-gradient(135deg, #fef3c7, #fde68a);
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 20px;
+        border: 1px solid #f59e0b;
+      }
+      
+      /* Buttons */
+      .swagger-ui .btn {
+        border-radius: 6px;
+        padding: 8px 16px;
+        font-weight: 500;
+        transition: all 0.2s ease;
+      }
+      
+      .swagger-ui .btn.authorize {
+        background: linear-gradient(135deg, #10b981, #059669);
+        border: none;
+        color: white;
+      }
+      
+      .swagger-ui .btn.authorize:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+      }
+      
+      .swagger-ui .btn.execute {
+        background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+        border: none;
+        color: white;
+      }
+      
+      .swagger-ui .btn.execute:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+      }
+      
+      /* Response section */
+      .swagger-ui .responses-wrapper {
+        background: #f8fafc;
+        border-radius: 8px;
+        padding: 20px;
+        margin-top: 15px;
+      }
+      
+      /* Schema section */
+      .swagger-ui .model-box {
+        background: #f1f5f9;
+        border-radius: 8px;
+        border: 1px solid #cbd5e1;
+      }
+      
+      /* Scrollbar styling */
+      .swagger-ui ::-webkit-scrollbar {
+        width: 8px;
+      }
+      
+      .swagger-ui ::-webkit-scrollbar-track {
+        background: #f1f5f9;
+        border-radius: 4px;
+      }
+      
+      .swagger-ui ::-webkit-scrollbar-thumb {
+        background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+        border-radius: 4px;
+      }
+      
+      .swagger-ui ::-webkit-scrollbar-thumb:hover {
+        background: linear-gradient(135deg, #1d4ed8, #1e40af);
+      }
+      
+      /* Loading animation */
+      @keyframes shimmer {
+        0% { background-position: -200px 0; }
+        100% { background-position: calc(200px + 100%) 0; }
+      }
+      
+      .swagger-ui .loading {
+        background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+        background-size: 200px 100%;
+        animation: shimmer 1.5s infinite;
+      }
     `,
   });
 
